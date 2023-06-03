@@ -61,6 +61,76 @@ This function handles user login. It checks if the user exists, compares the pro
 getUserProfile
 This function retrieves the profile of a specific user. It fetches the user profile from the database based on the provided user ID and returns it as a response. If the user is not found, an appropriate error message is returned.
 
+
+Create a New Drone
+Endpoint: POST /drones
+
+This endpoint allows users to create a new drone by sending a POST request to the /drones route. The request should include the drone details in the request body. The API validates the request body using the express-validator library to ensure the required fields are present and have valid values. If the validation fails, the API returns a 400 Bad Request response with details of the validation errors. If the validation passes, the API creates a new drone instance using the provided data, saves it to the database, and returns a 201 Created response with the created drone data.
+
+Delete a Drone
+Endpoint: DELETE /drones/:droneId
+
+This endpoint allows users to delete a specific drone by sending a DELETE request to the /drones/:droneId route, where :droneId is the ID of the drone to be deleted. The API checks if the user exists and is authorized to delete the drone by verifying the user's ID and the drone ID. If the user is not found or unauthorized, the API returns an appropriate error response. If the user is authorized, the API searches for the drone in the database using the provided ID. If the drone is found, it is deleted from the database, and the API returns a 200 OK response with a success message. If the drone is not found, the API returns a 404 Not Found response.
+
+
+Create a New Site
+Endpoint: POST /sites
+
+This endpoint allows users to create a new site by sending a POST request to the /sites route. The request should include the site details in the request body. The API validates the request body using the express-validator library to ensure the required fields are present and have valid values. If the validation fails, the API returns a 400 Bad Request response with details of the validation errors. If the validation passes, the API creates a new site instance using the provided data, saves it to the database, and returns a 201 Created response with the created site data.
+
+Update a Site
+Endpoint: PUT /sites/:siteId
+
+This endpoint allows users to update an existing site by sending a PUT request to the /sites/:siteId route, where :siteId is the ID of the site to be updated. The request should include the updated site details in the request body. The API checks if the site exists and belongs to the logged-in user based on the provided site ID and user ID. If the site is not found or does not belong to the user, the API returns an appropriate error response. If the site is found and belongs to the user, the API updates the site with the provided data and returns a 200 OK response with a success message and the updated site data.
+
+Delete Drones under a Site
+Endpoint: DELETE /sites/:siteId/drones
+
+This endpoint allows users to delete drones under a specific site by sending a DELETE request to the /sites/:siteId/drones route, where :siteId is the ID of the site. The request should include the drone IDs to be deleted in the request body. The API checks if the site exists and belongs to the logged-in user based on the provided site ID and user ID. If the site is not found or does not belong to the user, the API returns an appropriate error response. If the site is found and belongs to the user, the API removes the specified drones from the site's drone list and returns a 200 OK response with a success message and the updated site data.
+
+Delete a Site
+Endpoint: DELETE /sites/:siteId
+
+This endpoint allows users to delete a specific site by sending a DELETE request to the /sites/:siteId route, where :siteId is the ID of the site to be deleted. The API checks if the site exists and belongs to the logged-in user based on the provided site ID and user ID. If the site is not found or does not belong to the user, the API returns an appropriate error response. If the site is found and belongs to the user, the API deletes the site from the database and returns a 200 OK response with a success message.
+
+Create a New Category
+Endpoint: POST /categories
+
+This endpoint allows users to create a new category by sending a POST request to the /categories route. The request should include the category details in the request body. The API validates the request body using the express-validator library to ensure the required fields are present and have valid values. If the validation fails, the API returns a 400 Bad Request response with details of the validation errors. If the validation passes, the API creates a new category instance using the provided data, saves it to the database, and returns a 201 Created response with the created category data.
+
+Get All Categories
+Endpoint: GET /categories
+
+This endpoint allows users to retrieve all categories by sending a GET request to the /categories route. The API fetches all the categories from the database and returns a JSON response with the category data.
+
+Get a Single Category by ID
+Endpoint: GET /categories/:id
+
+This endpoint allows users to retrieve a single category by its ID by sending a GET request to the /categories/:id route, where :id is the ID of the category. The API searches for the category in the database based on the provided ID and returns a JSON response with the category data. If the category is not found, the API returns a 404 Not Found response with an error message.
+
+
+
+Create a New Site
+Endpoint: POST /sites
+
+This endpoint allows users to create a new site by sending a POST request to the /sites route. The request should include the site details in the request body. The API validates the request body using the express-validator library to ensure the required fields are present and have valid values. If the validation fails, the API returns a 400 Bad Request response with details of the validation errors. If the validation passes, the API creates a new site instance using the provided data, saves it to the database, and returns a 201 Created response with the created site data.
+
+Update a Site
+Endpoint: PUT /sites/:siteId
+
+This endpoint allows users to update an existing site by sending a PUT request to the /sites/:siteId route, where :siteId is the ID of the site to be updated. The request should include the updated site details in the request body. The API checks if the site exists and belongs to the logged-in user based on the provided site ID and user ID. If the site is not found or does not belong to the user, the API returns an appropriate error response. If the site is found and belongs to the user, the API updates the site with the provided data and returns a 200 OK response with a success message and the updated site data.
+
+Delete Drones under a Site
+Endpoint: DELETE /sites/:siteId/drones
+
+This endpoint allows users to delete drones under a specific site by sending a DELETE request to the /sites/:siteId/drones route, where :siteId is the ID of the site. The request should include the drone IDs to be deleted in the request body. The API checks if the site exists and belongs to the logged-in user based on the provided site ID and user ID. If the site is not found or does not belong to the user, the API returns an appropriate error response. If the site is found and belongs to the user, the API removes the specified drones from the site's drone list and returns a 200 OK response with a success message and the updated site data.
+
+Delete a Site
+Endpoint: DELETE /sites/:siteId
+
+This endpoint allows users to delete a specific site by sending a DELETE request to the /sites/:siteId route, where :siteId is the ID of the site to be deleted. The API checks if the site exists and belongs to the logged-in user based on the provided site ID and user ID. If the site is not found or does not belong to the user, the API returns an appropriate error response. If the site is found and belongs to the user, the API deletes the site from the database and returns a 200 OK response with a success message.
+
+
 Error Handling
 The code includes error handling to handle potential errors that may occur during the execution of the functions. If an error occurs, the server responds with an appropriate error message and status code (400, 404, or 500).
 

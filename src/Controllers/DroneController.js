@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const Drone = require('../Model/DroneModel');
+const User = require('../Model/UserModel');
 
 // Create a new drone
 exports.createDrone = async (req, res) => {
@@ -34,3 +35,39 @@ exports.createDrone = async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
+  
+
+
+exports.deleteDrone = async (req, res) => {
+  try {
+    const userId = req["userId"];
+    const droneId = req.params.droneId;
+
+    // Check if the user exists
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if the user is authorized to delete the drone
+    if (!user.drones.includes(droneId)) {
+      return res.status(401).json({ message: "Unauthorized to delete this drone" });
+    }
+
+    // Find the drone by ID
+    const drone = await Drone.findById(droneId);
+    if (!drone) {
+      return res.status(404).json({ message: "Drone not found" });
+    }
+
+    // Delete the drone
+    await drone.remove();
+
+    res.status(200).json({ message: "Drone deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+
