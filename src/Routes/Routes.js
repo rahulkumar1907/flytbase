@@ -22,8 +22,8 @@ router.put("/update/:siteId", middleWare.authentication, siteController.updateSi
 router.put("/drone/:siteId", middleWare.authentication, siteController.deleteDroneUnderSite);
 
 router.post("/create-category", middleWare.authentication, categoryController.createCategory);
-router.get("/get-category",  categoryController.createCategory);
-router.post("/get-category/:id",  categoryController.createCategory);
+router.get("/get-category",  categoryController.getCategories);
+router.get("/get-category/:id",  categoryController.getCategoryById);
 
 
 
