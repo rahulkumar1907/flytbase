@@ -8,13 +8,13 @@ const secretKey = "skyeair";
 // User Registration
 exports.registerUser = async (req, res) => {
   try {
-    const { name, email, password, phone,drones } = req.body;
-   //    Validation for request
-    if(email==undefined||email==""){return res.status(400).json({ message:"Invalid email" });}
-    if(password==undefined||password==""){return res.status(400).json({ message:"Invalid password" });}
-    if(phone==undefined||phone==""){return res.status(400).json({ message:"Invalid phone" });}
-    if(name==undefined||name==""){return res.status(400).json({ message:"Invalid  name" });}
-    if(drones==undefined||drones==""){return res.status(400).json({ message:"Invalid  drones" });}
+    const { name, email, password, phone, drones } = req.body;
+    //    Validation for request
+    if (email == undefined || email == "") { return res.status(400).json({ message: "Invalid email" }); }
+    if (password == undefined || password == "") { return res.status(400).json({ message: "Invalid password" }); }
+    if (phone == undefined || phone == "") { return res.status(400).json({ message: "Invalid phone" }); }
+    if (name == undefined || name == "") { return res.status(400).json({ message: "Invalid  name" }); }
+    if (drones == undefined || drones == "") { return res.status(400).json({ message: "Invalid  drones" }); }
 
     // Check if the email is already registered
     const existingUser = await User.findOne({ email });

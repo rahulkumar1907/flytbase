@@ -11,19 +11,22 @@ const middleWare = require("../Middleware/Middleware");
 router.post("/register", userController.registerUser);
 router.post("/login", userController.loginUser);
 router.get("/profile/:userId", middleWare.authentication, userController.getUserProfile);
+
 router.post("/create-drone", middleWare.authentication, droneController.createDrone);
 router.delete("/delete/:drone", middleWare.authentication, droneController.deleteDrone);
+
 router.post("/create-mission", middleWare.authentication, missionController.createMission);
 router.get("/filter-mission", missionController.filterMission);
 router.put("/mission/:siteId", middleWare.authentication, missionController.updateMissionUnderSite);
 router.delete("/mission/:siteId", middleWare.authentication, missionController.deleteMissionUnderSite);
+
 router.post("/create-site", middleWare.authentication, siteController.createSite);
 router.put("/update/:siteId", middleWare.authentication, siteController.updateSite);
 router.put("/drone/:siteId", middleWare.authentication, siteController.deleteDroneUnderSite);
 
 router.post("/create-category", middleWare.authentication, categoryController.createCategory);
-router.get("/get-category",  categoryController.getCategories);
-router.get("/get-category/:id",  categoryController.getCategoryById);
+router.get("/get-category", categoryController.getCategories);
+router.get("/get-category/:id", categoryController.getCategoryById);
 
 
 

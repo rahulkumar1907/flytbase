@@ -16,7 +16,7 @@ exports.createMission = async (req, res) => {
         req.body.userId = req["userId"];
         // Extract the mission data from the request body
         const { name, drone, site, category, waypoints, userId } = req.body;
-    //    Validation for request
+        //    Validation for request
         if (drone == undefined || drone == "") { return res.status(400).json({ message: "Invalid drone" }); }
         if (site == undefined || site == "") { return res.status(400).json({ message: "Invalid site" }); }
         if (category == undefined || category == "") { return res.status(400).json({ message: "Invalid category" }); }
@@ -88,15 +88,15 @@ exports.filterMission = async (req, res) => {
 
 exports.updateMissionUnderSite = async (req, res) => {
     try {
-        const siteId=req.params.siteId
+        const siteId = req.params.siteId;
         req.body.userId = req["userId"];
-        const {drone,site,category}=req.body
-        console.log(req.body.userId)
+        const { drone, site, category } = req.body;
+        console.log(req.body.userId);
         if (drone == undefined || drone == "") { return res.status(400).json({ message: "Invalid drone" }); }
         if (site == undefined || site == "") { return res.status(400).json({ message: "Invalid site" }); }
         if (category == undefined || category == "") { return res.status(400).json({ message: "Invalid category" }); }
-        const missionDetails=await Mission.findOne({userId:req.body.userId })
-        if(!missionDetails) { return res.status(404).json({ message: "mission not exist for this user" }); }
+        const missionDetails = await Mission.findOne({ userId: req.body.userId });
+        if (!missionDetails) { return res.status(404).json({ message: "mission not exist for this user" }); }
         const droneDetails = await Drone.findById(drone);
         const userDetails = await User.findById(req.body.userId);
 
@@ -116,17 +116,17 @@ exports.updateMissionUnderSite = async (req, res) => {
             return res.status(400).json({ message: "site not contain this drone" });
         }
         // console.log(missionDetails)
-        if(missionDetails.userId!=req.body.userId){
+        if (missionDetails.userId != req.body.userId) {
             { return res.status(401).json({ message: "not authorised" }); }
-         }else{
+        } else {
             const updatedDetails = await Mission.findOneAndUpdate(
                 { site: siteId },
-                { drone, site, category,updated_at:Date.now() },
+                { drone, site, category, updated_at: Date.now() },
                 { new: true }
-              );     
-              { return res.status(200).json({ data: updatedDetails }); }
-  
-            }
+            );
+            { return res.status(200).json({ data: updatedDetails }); }
+
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Server error' });
@@ -134,25 +134,24 @@ exports.updateMissionUnderSite = async (req, res) => {
 };
 
 
-  
-  
+
+
 
 exports.deleteMissionUnderSite = async (req, res) => {
     try {
-      const siteId = req.params.siteId;
-      const userId = req["userId"];
-  
-      const missionDetails = await Mission.findOne({ site: siteId, userId });
-      if (!missionDetails) {
-        return res.status(404).json({ message: "Mission does not exist for this user and site" });
-      }
-  
-      await Mission.deleteOne({ _id: missionDetails._id });
-  
-      return res.status(200).json({ message: "Mission deleted successfully" });
+        const siteId = req.params.siteId;
+        const userId = req["userId"];
+
+        const missionDetails = await Mission.findOne({ site: siteId, userId });
+        if (!missionDetails) {
+            return res.status(404).json({ message: "Mission does not exist for this user and site" });
+        }
+
+        await Mission.deleteOne({ _id: missionDetails._id });
+
+        return res.status(200).json({ message: "Mission deleted successfully" });
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Server error' });
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
     }
-  };
-  
+};
